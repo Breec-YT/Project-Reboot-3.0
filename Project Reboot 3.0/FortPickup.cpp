@@ -32,9 +32,9 @@ void AFortPickup::SpawnMovementComponent()
 AFortPickup* AFortPickup::SpawnPickup(PickupCreateData& PickupData)
 {
 	if (PickupData.Source == -1)
-		PickupData.Source = -1;
+		PickupData.Source = 0;
 	if (PickupData.SourceType == -1)
-		PickupData.SourceType = -1;
+		PickupData.SourceType = 0;
 
 	/* if (PickupData.bToss)
 	{

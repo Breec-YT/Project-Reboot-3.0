@@ -185,7 +185,7 @@ public:
 
 	void RespawnPlayerAfterDeath(bool bEnterSkydiving)
 	{
-		static auto RespawnPlayerAfterDeathFn = FindObject<UFunction>("/Script/FortniteGame.FortPlayerControllerAthena.RespawnPlayerAfterDeath");
+		static auto RespawnPlayerAfterDeathFn = FindObject<UFunction>(L"/Script/FortniteGame.FortPlayerControllerAthena.RespawnPlayerAfterDeath");
 
 		if (RespawnPlayerAfterDeathFn)
 		{
@@ -193,8 +193,20 @@ public:
 		}
 		else
 		{
-			// techinally we can remake this as all it really does on older versions is clear deathinfo
+			// techinally we can remake this as all it really does on older versions is clear deathinfo (I think?)
 		}
+	}
+
+	void ClientOnPawnRevived(AController* EventInstigator)
+	{
+		static auto ClientOnPawnRevivedFn = FindObject<UFunction>("/Script/FortniteGame.FortPlayerControllerZone.ClientOnPawnRevived");
+		this->ProcessEvent(ClientOnPawnRevivedFn, &EventInstigator);
+	}
+
+	bool& IsMarkedAlive()
+	{
+		static auto bMarkedAliveOffset = GetOffset("bMarkedAlive");
+		return Get<bool>(bMarkedAliveOffset);
 	}
 
 	static void StartGhostModeHook(UObject* Context, FFrame* Stack, void* Ret); // we could native hook this but eh
